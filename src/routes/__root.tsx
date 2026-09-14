@@ -9,17 +9,17 @@ import { Button } from "@/components/ui/button"
 
 const RootLayout = () => (
   <>
-    <div className="flex gap-2 p-2">
+    <nav aria-label="Main" className="flex gap-2 p-2">
       <Link to="/" className="[&.active]:font-bold">
         Home
       </Link>{" "}
       <Link to="/about" className="[&.active]:font-bold">
         About
       </Link>
-    </div>
+    </nav>
     <hr />
     <Outlet />
-    <TanStackRouterDevtools />
+    {import.meta.env.DEV && <TanStackRouterDevtools />}
   </>
 )
 
@@ -35,7 +35,7 @@ const ErrorPage = ({ error, reset }: ErrorComponentProps) => (
   <div className="space-y-4 p-8">
     <h1 className="text-2xl font-bold">Something went wrong</h1>
     <pre className="text-muted-foreground overflow-auto text-sm">
-      {error.message}
+      {import.meta.env.DEV ? error.message : "Please try again."}
     </pre>
     <Button onClick={reset}>Try again</Button>
   </div>
