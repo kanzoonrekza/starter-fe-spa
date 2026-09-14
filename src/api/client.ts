@@ -8,7 +8,12 @@ export const api = axios.create({
 export function resolveServerMessage(error: unknown): string {
   if (axios.isAxiosError(error)) {
     const data: unknown = error.response?.data
-    if (typeof data === "object" && data !== null && "message" in data && typeof data.message === "string") {
+    if (
+      typeof data === "object" &&
+      data !== null &&
+      "message" in data &&
+      typeof data.message === "string"
+    ) {
       return data.message
     }
     return error.message

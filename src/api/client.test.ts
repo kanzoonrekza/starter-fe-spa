@@ -5,7 +5,13 @@ import { shouldRetry } from "./query-client"
 
 test("errors tolerate malformed responses and retries stop on client errors", () => {
   const error = new AxiosError("Bad request")
-  error.response = { status: 422, data: { message: "Invalid request." }, statusText: "", headers: {}, config: { headers: {} } } as AxiosError["response"]
+  error.response = {
+    status: 422,
+    data: { message: "Invalid request." },
+    statusText: "",
+    headers: {},
+    config: { headers: {} },
+  } as AxiosError["response"]
   expect(resolveServerMessage(error)).toBe("Invalid request.")
   expect(shouldRetry(0, error)).toBe(false)
   error.response!.data = { message: { unsafe: true } }
